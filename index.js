@@ -1,3 +1,4 @@
+// Neccessary imports
 const Manager = require('./lib/manager');
 const Engineer = require('./lib/engineer');
 const Intern = require('./lib/intern');
@@ -5,8 +6,10 @@ const inquirer = require('inquirer');
 const generateCard = require('./src/generateCard');
 const generateHtml = require('./src/generateHtml');
 
+// Employee cards will be appended here before being added to the html
 var employeeCards = '';
 
+// Employee info prompts to grab user data
 const managerInfo = [
     {
         type: 'input',
@@ -95,17 +98,19 @@ const internInfo = [
     }
 ]
 
+// Initializes team profile builder, starting with the manager
 function initializeTeam() {
     inquirer
         .prompt(managerInfo)
         .then( data => {
             let newManager = new Manager(data.managerName, data.managerID, data.managerEmail, data.managerOfficeNum);
-            let managerCard = generateCard(newManager.getRole(), newManager);
+            let managerCard = generateCard(newManager.getRole(), newManager); // Passes the class object and its role to generate a card to be added to the html
             employeeCards += managerCard;
             addEmployee(data.newEmployee);
         })
     }
 
+// Adds another employee based on 'newEmployee' key from prior input, will generate an html if user chooses 'Finish'
 function addEmployee(role) {
     if (role == 'Engineer') {
         inquirer
@@ -118,7 +123,7 @@ function addEmployee(role) {
                     addEmployee(data.newEmployee);
                 }
                 else {
-                    generateHtml(employeeCards);
+                    generateHtml(employeeCards); // Generates the proper html webpage once user is finished
                 }
             })
     }
