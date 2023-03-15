@@ -60,6 +60,19 @@ describe('Manager', () => {
             expect(cls).toEqual(email);
         })
     });
+    describe("getOfficeNum", () => {
+        it("should return value of 'officeNum' when called", () => {
+            const name = 'Brian';
+            const id = 1;
+            const email = 'someemail@email.com';
+            const officeNum = 100;
+            const role = 'Manager'
+
+            const cls = new Manager(name, id, email, officeNum).getOfficeNum();
+
+            expect(cls).toEqual(officeNum);
+        })
+    });
     describe("getRole", () => {
         it("should return value of 'Manager' when called", () => {
             const name = 'Brian';
